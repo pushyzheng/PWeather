@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RetrofitServiceManager {
 
-    private static final String BASE_URL = "http://api.bbs.pushy.site";
+    private static final String BASE_URL = "http://guolin.tech/api/";
     private static final int DEFAULT_TIME_OUT = 5;  //超时时间 5s
     private static final int DEFAULT_READ_TIME_OUT = 10;
     private static final int DEFAULT_WRITE_TIME_OUT = 10;
