@@ -1,10 +1,10 @@
-package site.pushy.weather.http;
+package site.pushy.weather;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class ObjectLoader {
+public class BaseLoader {
 
     protected  <T> Observable<T> observe(Observable<T> observable){
         return observable
