@@ -7,12 +7,12 @@ import java.util.List;
 public class BaseWeather {
 
     @SerializedName("HeWeather")
-    public List<Weather> weather;
+    public List<Weather> weathers;
 
     @Override
     public String toString() {
         return "BaseWeather{" +
-                "weather=" + weather +
+                "weathers=" + weathers +
                 '}';
     }
 }

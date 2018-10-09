@@ -13,7 +13,7 @@ public class Now {
     @SerializedName("cond")
     public More more;  // 云状态
 
-    private class More {
+    public class More {
 
         @SerializedName("txt")
         public String info;

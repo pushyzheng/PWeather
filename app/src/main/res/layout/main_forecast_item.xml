@@ -7,30 +7,38 @@
 
     <!--播报时间-->
     <TextView
-        android:id="@+id/tv_date"
+        android:id="@+id/tv_forecast_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorWhite"
-        android:textSize="19sp"
+        android:textSize="17sp"
         android:text="今天"/>
 
     <!--天气状况-->
     <TextView
-        android:id="@+id/tv_info"
+        android:id="@+id/tv_forecast_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorWhite"
-        android:textSize="19sp"
-        android:layout_toRightOf="@id/tv_date"
+        android:textSize="17sp"
+        android:layout_toRightOf="@id/tv_forecast_date"
         android:layout_marginLeft="5dp"
         android:text="晴"/>
+
+    <ImageView
+        android:id="@+id/tv_forecast_ic"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_toLeftOf="@id/tv_forecast_max"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/ic_sunny"/>
 
     <TextView
         android:id="@+id/tv_forecast_max"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorWhite"
-        android:textSize="19sp"
+        android:textSize="17sp"
         android:layout_toLeftOf="@id/tv_forecast_min"
         android:text="19"/>
 
@@ -39,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorWhite"
-        android:textSize="19sp"
+        android:textSize="17sp"
         android:layout_alignParentRight="true"
         android:text="/6℃"/>
 

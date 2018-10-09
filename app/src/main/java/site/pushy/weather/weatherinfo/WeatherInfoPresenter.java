@@ -16,7 +16,12 @@ public class WeatherInfoPresenter implements WeatherInfoContract.Presenter {
 
     @Override
     public void start() {
-        model.getWeather("CN101230909")
+
+    }
+
+    @Override
+    public void getWeatherInfo(String cityId) {
+        model.getWeather(cityId)
                 .subscribe(new Observer<BaseWeather>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -26,6 +31,9 @@ public class WeatherInfoPresenter implements WeatherInfoContract.Presenter {
                     @Override
                     public void onNext(BaseWeather baseWeather) {
                         System.out.println("baseweather => " + baseWeather);
+                        if (!baseWeather.weathers.isEmpty()) {
+                            view.setWeather(baseWeather.weathers.get(0));
+                        }
                     }
 
                     @Override
@@ -39,5 +47,4 @@ public class WeatherInfoPresenter implements WeatherInfoContract.Presenter {
                     }
                 });
     }
-
 }
