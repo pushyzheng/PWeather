@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:layout_margin="20dp">
+
+    <TextView
+        android:id="@+id/tv_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="100sp"
+        android:textColor="@color/colorWhite"
+        android:text="20"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="27dp"
+        android:layout_toEndOf="@+id/tv_temp"
+        android:text="℃"
+        android:textColor="@color/colorWhite"
+        android:textSize="30sp"
+        android:layout_toRightOf="@+id/tv_temp" />
+
+
+    <TextView
+        android:id="@+id/tv_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
+        android:layout_below="@id/tv_temp"
+        android:textSize="18sp"
+        android:text="邯郸市"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
+        android:layout_below="@id/tv_city"
+        android:textSize="18sp"
+        android:text="晴"/>
+
+</RelativeLayout>

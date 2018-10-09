@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <!--播报时间-->
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
+        android:textSize="19sp"
+        android:text="今天"/>
+
+    <!--天气状况-->
+    <TextView
+        android:id="@+id/tv_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
+        android:textSize="19sp"
+        android:layout_toRightOf="@id/tv_date"
+        android:layout_marginLeft="5dp"
+        android:text="晴"/>
+
+    <TextView
+        android:id="@+id/tv_forecast_max"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
+        android:textSize="19sp"
+        android:layout_toLeftOf="@id/tv_forecast_min"
+        android:text="19"/>
+
+    <TextView
+        android:id="@+id/tv_forecast_min"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
+        android:textSize="19sp"
+        android:layout_alignParentRight="true"
+        android:text="/6℃"/>
+
+</RelativeLayout>

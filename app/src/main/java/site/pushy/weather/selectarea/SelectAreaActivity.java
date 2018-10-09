@@ -82,11 +82,11 @@ public class SelectAreaActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (currentLevel == LEVEL_PROVINCE) {
-            getSupportActionBar().setTitle(dataList.get(position));
+            //getSupportActionBar().setTitle(dataList.get(position));
             presenter.getCities(18);
             currentLevel = LEVEL_CITY;
         } else if (currentLevel == LEVEL_CITY) {
-            getSupportActionBar().setTitle(dataList.get(position));
+            //getSupportActionBar().setTitle(dataList.get(position));
             presenter.getCounties(18, 146);
             currentLevel = LEVEL_COUNTY;
         } else if (currentLevel == LEVEL_COUNTY) {
