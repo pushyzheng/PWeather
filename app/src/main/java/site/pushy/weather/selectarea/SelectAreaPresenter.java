@@ -9,9 +9,9 @@ import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import site.pushy.weather.data.City;
-import site.pushy.weather.data.County;
-import site.pushy.weather.data.Province;
+import site.pushy.weather.data.db.City;
+import site.pushy.weather.data.db.County;
+import site.pushy.weather.data.db.Province;
 
 public class SelectAreaPresenter implements SelectAreaContract.Presenter {
     

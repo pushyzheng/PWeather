@@ -8,9 +8,10 @@
 
     <!--映射模型列表-->
     <list>
-        <mapping class="site.pushy.weather.data.Province" />
-        <mapping class="site.pushy.weather.data.City" />
-        <mapping class="site.pushy.weather.data.County" />
+        <mapping class="site.pushy.weather.data.db.Province" />
+        <mapping class="site.pushy.weather.data.db.City" />
+        <mapping class="site.pushy.weather.data.db.County" />
+        <mapping class="site.pushy.weather.data.db.MyArea" />
     </list>
 
 </litepal>

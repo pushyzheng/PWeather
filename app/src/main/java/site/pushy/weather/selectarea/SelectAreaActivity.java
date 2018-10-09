@@ -18,10 +18,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import site.pushy.weather.R;
-import site.pushy.weather.data.City;
-import site.pushy.weather.data.Province;
+import site.pushy.weather.data.db.City;
+import site.pushy.weather.data.db.MyArea;
+import site.pushy.weather.data.db.Province;
 import site.pushy.weather.weatherinfo.WeatherInfoActivity;
-import site.pushy.weather.weatherinfo.WeatherInfoContract;
 
 public class SelectAreaActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, SelectAreaContract.View  {
 
@@ -91,8 +91,16 @@ public class SelectAreaActivity extends AppCompatActivity implements AdapterView
             currentLevel = LEVEL_COUNTY;
         } else if (currentLevel == LEVEL_COUNTY) {
             Toast.makeText(this, "选择地区成功", Toast.LENGTH_SHORT).show();
+
+            /* 保存选择的地区到数据库 */
+            MyArea myArea = new MyArea();
+            myArea.setName("政和");
+            myArea.setWeatherId("CN101230909");
+            myArea.save();
+
             Intent intent = new Intent(this, WeatherInfoActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 

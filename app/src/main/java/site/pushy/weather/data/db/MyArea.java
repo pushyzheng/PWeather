@@ -1,24 +1,12 @@
-package site.pushy.weather.data;
+package site.pushy.weather.data.db;
 
 import org.litepal.crud.LitePalSupport;
 
-public class County extends LitePalSupport {
-
-    private int id;
+public class MyArea extends LitePalSupport {
 
     private String name;
 
     private String weatherId;
-
-    private int cityId;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -36,21 +24,11 @@ public class County extends LitePalSupport {
         this.weatherId = weatherId;
     }
 
-    public int getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(int cityId) {
-        this.cityId = cityId;
-    }
-
     @Override
     public String toString() {
-        return "County{" +
-                "id=" + id +
+        return "MyArea{" +
                 ", name='" + name + '\'' +
                 ", weatherId='" + weatherId + '\'' +
-                ", cityId=" + cityId +
                 '}';
     }
 }

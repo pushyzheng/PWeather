@@ -6,4 +6,7 @@
 
     <color name="colorWhite">#FFF</color>
     <color name="colorBlack">#000</color>
+
+    <!--分割线-->
+    <color name="colorDivider">#F1F1F1</color>
 </resources>

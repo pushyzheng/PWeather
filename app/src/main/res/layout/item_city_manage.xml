@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_margin="8dp"
+    android:background="@color/colorWhite">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="30dp">
+
+        <TextView
+            android:id="@+id/tv_city_manage_county"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="政和县"
+            android:textSize="23sp" />
+
+        <TextView
+            android:id="@+id/tv_city_manage_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_city_manage_county"
+            android:layout_marginTop="5dp"
+            android:text="南平"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_city_manage_province"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_city_manage_county"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/tv_city_manage_city"
+            android:text="，福建"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignBottom="@+id/tv_city_manage_county"
+            android:layout_toLeftOf="@+id/tv_city_manage_temp"
+            android:layout_toStartOf="@+id/tv_city_manage_temp"
+            android:src="@drawable/ic_sunny" />
+
+        <TextView
+            android:id="@+id/tv_city_manage_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_city_manage_city"
+            android:layout_toLeftOf="@+id/tv_city_manage_temp_symbol"
+            android:text="19"
+            android:textSize="60sp" />
+
+        <TextView
+            android:id="@+id/tv_city_manage_temp_symbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="℃" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDivider"
+            android:layout_below="@id/tv_city_manage_city"
+            android:layout_marginTop="20dp"/>
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

@@ -6,9 +6,9 @@ import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import site.pushy.weather.BaseModel;
-import site.pushy.weather.data.City;
-import site.pushy.weather.data.County;
-import site.pushy.weather.data.Province;
+import site.pushy.weather.data.db.City;
+import site.pushy.weather.data.db.County;
+import site.pushy.weather.data.db.Province;
 import site.pushy.weather.http.RetrofitServiceManager;
 
 public class SelectAreaModel extends BaseModel {

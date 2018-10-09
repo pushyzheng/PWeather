@@ -1,5 +1,6 @@
 package site.pushy.weather.weatherinfo;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -17,10 +18,12 @@ import com.bumptech.glide.Glide;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import site.pushy.weather.R;
+import site.pushy.weather.citymanage.CityManageActivity;
 import site.pushy.weather.data.weather.Forecast;
 import site.pushy.weather.data.weather.Weather;
 
-public class WeatherInfoActivity extends AppCompatActivity implements WeatherInfoContract.View, SwipeRefreshLayout.OnRefreshListener {
+public class WeatherInfoActivity extends AppCompatActivity implements WeatherInfoContract.View,
+        SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
     @BindView(R.id.iv_background) ImageView ivBackground;
     @BindView(R.id.tv_temp) TextView tvTemp;
@@ -30,6 +33,7 @@ public class WeatherInfoActivity extends AppCompatActivity implements WeatherInf
     @BindView(R.id.tv_wind_dir) TextView tvWindDir;
     @BindView(R.id.layout_forecast) LinearLayout forecastLayout;
     @BindView(R.id.swipe_refresh_main) SwipeRefreshLayout swipeRefresh;
+    @BindView(R.id.iv_main_add_city) ImageView ivAddCity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,16 +62,17 @@ public class WeatherInfoActivity extends AppCompatActivity implements WeatherInf
     private void initWidget() {
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         swipeRefresh.setOnRefreshListener(this);
+        ivAddCity.setOnClickListener(this);
     }
 
     @Override
     public void setWeather(Weather weather) {
-        Glide.with(this)
-                .load("http://cn.bing.com/az/hprichbg/rb/MarshallPoint_ZH-CN9062933060_1920x1080.jpg")
-                .into(ivBackground);
+//        Glide.with(this)
+//                .load("http://cn.bing.com/az/hprichbg/rb/MarshallPoint_ZH-CN9062933060_1920x1080.jpg")
+//                .into(ivBackground);
 
         tvTemp.setText(weather.now.temperature);
-        tvCity.setText(weather.basic.cityName);
+        tvCity.setText(weather.basic.location);
         tvInfo.setText(weather.now.more.info);
 
         String apiText = String.format("空气%s %s", weather.aqi.city.qlty, weather.aqi.city.aqi);
@@ -95,5 +100,15 @@ public class WeatherInfoActivity extends AppCompatActivity implements WeatherInf
     public void onRefresh() {
         swipeRefresh.setRefreshing(false);
         Toast.makeText(this, "更新天气数据成功", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_main_add_city:
+                Intent intent = new Intent(this, CityManageActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }
