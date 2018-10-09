@@ -1,12 +1,16 @@
 package site.pushy.weather.selectarea;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import org.litepal.LitePal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +20,7 @@ import butterknife.ButterKnife;
 import site.pushy.weather.R;
 import site.pushy.weather.data.City;
 import site.pushy.weather.data.Province;
+import site.pushy.weather.weatherinfo.WeatherInfoActivity;
 import site.pushy.weather.weatherinfo.WeatherInfoContract;
 
 public class SelectAreaActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, SelectAreaContract.View  {
@@ -42,25 +47,33 @@ public class SelectAreaActivity extends AppCompatActivity implements AdapterView
         ButterKnife.bind(this);
         initWidget();
 
+        LitePal.getDatabase();
+
         presenter = new SelectAreaPresenter(this, new SelectAreaModel());
         //presenter.start();
         presenter.getProvinces();
+    }
+
+    @Override
+    public void setPresenter(SelectAreaContract.Presenter presenter) {
+
     }
 
     private void initWidget() {
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, dataList);
         lvArea.setAdapter(adapter);
         lvArea.setOnItemClickListener(this);
-
         currentLevel = LEVEL_PROVINCE;
     }
 
     @Override
     public void onBackPressed() {
         if (currentLevel == LEVEL_COUNTY) {
-            presenter.getCities(1);
+            presenter.getCities(18);
+            currentLevel = LEVEL_CITY;
         } else if (currentLevel == LEVEL_CITY) {
             presenter.getProvinces();
+            currentLevel = LEVEL_PROVINCE;
         } else {
             finish();
         }
@@ -69,17 +82,18 @@ public class SelectAreaActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (currentLevel == LEVEL_PROVINCE) {
+            getSupportActionBar().setTitle(dataList.get(position));
             presenter.getCities(18);
             currentLevel = LEVEL_CITY;
         } else if (currentLevel == LEVEL_CITY) {
-            presenter.getCounties(1, 1);
+            getSupportActionBar().setTitle(dataList.get(position));
+            presenter.getCounties(18, 146);
             currentLevel = LEVEL_COUNTY;
+        } else if (currentLevel == LEVEL_COUNTY) {
+            Toast.makeText(this, "选择地区成功", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, WeatherInfoActivity.class);
+            startActivity(intent);
         }
-    }
-
-    @Override
-    public void setPresenter(WeatherInfoContract.Presenter presenter) {
-
     }
 
     @Override
@@ -91,7 +105,7 @@ public class SelectAreaActivity extends AppCompatActivity implements AdapterView
 
     @Override
     public void setProgressDialog(boolean v) {
-        if (progressDialog == null) {
+        if (progressDialog == null) {  // 初始化progressDialog
             progressDialog = new ProgressDialog(this);
             progressDialog.setMessage("正在加载 ...");
             progressDialog.setCanceledOnTouchOutside(false);
@@ -101,7 +115,6 @@ public class SelectAreaActivity extends AppCompatActivity implements AdapterView
         } else {
             progressDialog.hide();
         }
-
-
     }
+
 }

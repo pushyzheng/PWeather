@@ -8,7 +8,7 @@ import site.pushy.weather.weatherinfo.WeatherInfoContract;
 
 public class SelectAreaContract {
 
-    interface View extends BaseView<WeatherInfoContract.Presenter> {
+    interface View extends BaseView<SelectAreaContract.Presenter> {
 
         void setDataList(List<String> data);
 
@@ -17,7 +17,6 @@ public class SelectAreaContract {
     }
 
     interface Presenter extends BasePresenter {
-
 
         void getProvinces();
 
