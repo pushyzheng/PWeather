@@ -24,6 +24,10 @@ public class SelectAreaContract {
 
         void getCounties(int position);
 
+        void backToCityLevel();
+
+        String saveMyArea(int position);
+
     }
 
 }

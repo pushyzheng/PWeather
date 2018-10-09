@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,6 +22,7 @@ import site.pushy.weather.R;
 import site.pushy.weather.data.db.City;
 import site.pushy.weather.data.db.MyArea;
 import site.pushy.weather.data.db.Province;
+import site.pushy.weather.uitls.ToastUtil;
 import site.pushy.weather.weatherinfo.WeatherInfoActivity;
 
 public class SelectAreaActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, SelectAreaContract.View  {
@@ -66,7 +68,7 @@ public class SelectAreaActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onBackPressed() {
         if (currentLevel == LEVEL_COUNTY) {
-            presenter.getCities(18);
+            presenter.backToCityLevel();
             currentLevel = LEVEL_CITY;
         } else if (currentLevel == LEVEL_CITY) {
             presenter.getProvinces();
@@ -85,15 +87,11 @@ public class SelectAreaActivity extends AppCompatActivity implements AdapterView
             presenter.getCounties(position);
             currentLevel = LEVEL_COUNTY;
         } else if (currentLevel == LEVEL_COUNTY) {
-            Toast.makeText(this, "选择地区成功", Toast.LENGTH_SHORT).show();
-
-            /* 保存选择的地区到数据库 */
-            MyArea myArea = new MyArea();
-            myArea.setName("政和");
-            myArea.setWeatherId("CN101230909");
-            myArea.save();
+            String weatherId = presenter.saveMyArea(position);
+            ToastUtil.showToast("选择地区成功 => " + weatherId);
 
             Intent intent = new Intent(this, WeatherInfoActivity.class);
+            intent.putExtra("weatherId", weatherId);
             startActivity(intent);
             finish();
         }

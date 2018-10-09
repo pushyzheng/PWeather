@@ -11,6 +11,7 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import site.pushy.weather.data.db.City;
 import site.pushy.weather.data.db.County;
+import site.pushy.weather.data.db.MyArea;
 import site.pushy.weather.data.db.Province;
 
 public class SelectAreaPresenter implements SelectAreaContract.Presenter {
@@ -21,8 +22,10 @@ public class SelectAreaPresenter implements SelectAreaContract.Presenter {
 
     private List<Province> mProvinceList;
     private List<City> mCityList;
+    private List<County> mCountyList;
     private Province selectedProvince;  // 当前选中的省份
     private City selectedCity;  // 当前选中的城市
+    private County selectedCounty;  // 选中的地区
 
     public SelectAreaPresenter(SelectAreaContract.View view, SelectAreaModel model) {
         this.view = view;
@@ -88,12 +91,17 @@ public class SelectAreaPresenter implements SelectAreaContract.Presenter {
                 });
     }
 
+    /**
+     * 查询某个省的所有的市区，优先从数据库查询，如果没有查询再到服务器上查询
+     */
     @Override
     public void getCities(int position) {
         Province province = mProvinceList.get(position);
         this.selectedProvince = province;  // 设置当前选中的Province
         int provinceId = province.getId();
-        List<City> cityList = LitePal.findAll(City.class);
+
+        /* 从数据中根据provinceId查找是否存储该省份归属的城市数据 */
+        List<City> cityList = LitePal.where("provinceid = ?", String.valueOf(provinceId)).find(City.class);
 
         if (cityList.size() > 0) {
             Log.d(TAG, "加载city缓存数据 ...");
@@ -137,20 +145,27 @@ public class SelectAreaPresenter implements SelectAreaContract.Presenter {
 
                     @Override
                     public void onComplete() {
-
                     }
                 });
     }
 
+
+
+    /**
+     * 查询某个市的所有的区县，优先从数据库查询，如果没有查询再到服务器上查询
+     */
     @Override
     public void getCounties(int position) {
         City city = mCityList.get(position);
         this.selectedCity = city;  // 设置当前选中的City对象
         int cityId = city.getCode();
 
-        List<County> countyList = LitePal.findAll(County.class);
+        /* 从数据中根据cityId查找是否存储该城市归属的区县的数据 */
+        List<County> countyList = LitePal.where("cityid = ?", String.valueOf(cityId)).find(County.class);
+
         if (countyList.size() > 0) {
             Log.d(TAG, "加载County缓存数据 ...");
+            mCountyList = countyList;
             List<String> dataList = new ArrayList<>();
             for (County county : countyList) {
                 dataList.add(county.getName());
@@ -170,6 +185,7 @@ public class SelectAreaPresenter implements SelectAreaContract.Presenter {
                     public void onNext(List<County> counties) {
                         System.out.println("Got counties from server => " + counties);
 
+                        mCountyList = counties;
                         List<String> dataList = new ArrayList<>();
                         for (County county : counties) {
                             county.setCityId(cityId);
@@ -191,6 +207,32 @@ public class SelectAreaPresenter implements SelectAreaContract.Presenter {
 
                     }
                 });
+    }
+
+    @Override
+    public void backToCityLevel() {
+        List<City> cityList = LitePal.where("provinceid = ?", String.valueOf(selectedProvince.getCode())).find(City.class);
+        List<String> dataList = new ArrayList<>();
+        for (City city : cityList) {
+            dataList.add(city.getName());
+        }
+        view.setDataList(dataList);
+    }
+
+    /**
+     * 保存选中的地区信息
+     * @return 选中的地区的天气代码
+     */
+    @Override
+    public String saveMyArea(int position) {
+        County county = mCountyList.get(position);
+        /* 保存选择的地区到数据库 */
+        MyArea myArea = new MyArea();
+        myArea.setName(county.getName());
+        myArea.setWeatherId(county.getWeatherId());
+        myArea.save();
+
+        return county.getWeatherId();
     }
 
 
