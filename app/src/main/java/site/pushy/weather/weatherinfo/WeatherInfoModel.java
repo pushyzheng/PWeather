@@ -17,8 +17,8 @@ public class WeatherInfoModel extends BaseModel {
         this.weatherInfoService = RetrofitServiceManager.getInstance().create(WeatherInfoService.class);
     }
 
-    public Observable<BaseWeather> getWeather(String cityId) {
-        return observe(weatherInfoService.getWeather(cityId, key));
+    public Observable<BaseWeather> getWeather(String weatherId) {
+        return observe(weatherInfoService.getWeather(weatherId, key));
     }
 
     interface WeatherInfoService {

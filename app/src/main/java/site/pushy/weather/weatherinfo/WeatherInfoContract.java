@@ -14,8 +14,9 @@ public interface WeatherInfoContract {
 
     interface Presenter extends BasePresenter {
 
-
         void getWeatherInfo(String cityId);
+
+        void updateWeatherInfo(String cityId);
 
     }
 

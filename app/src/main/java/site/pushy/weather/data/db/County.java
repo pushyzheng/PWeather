@@ -1,5 +1,7 @@
 package site.pushy.weather.data.db;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.litepal.crud.LitePalSupport;
 
 public class County extends LitePalSupport {
@@ -8,6 +10,7 @@ public class County extends LitePalSupport {
 
     private String name;
 
+    @SerializedName("weather_id")
     private String weatherId;
 
     private int cityId;

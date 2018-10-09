@@ -29,8 +29,6 @@ public class SelectAreaActivity extends AppCompatActivity implements AdapterView
     private static final int LEVEL_CITY = 1;
     private static final int LEVEL_COUNTY = 2;
 
-    private Province selectedProvince;  // 当前选中的省份
-    private City selectedCity;  // 当前选中的城市
     private int currentLevel;  // 当前选中的级别
     private List<String> dataList = new ArrayList<>();
 
@@ -50,7 +48,6 @@ public class SelectAreaActivity extends AppCompatActivity implements AdapterView
         LitePal.getDatabase();
 
         presenter = new SelectAreaPresenter(this, new SelectAreaModel());
-        //presenter.start();
         presenter.getProvinces();
     }
 
@@ -82,12 +79,10 @@ public class SelectAreaActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (currentLevel == LEVEL_PROVINCE) {
-            //getSupportActionBar().setTitle(dataList.get(position));
-            presenter.getCities(18);
+            presenter.getCities(position);
             currentLevel = LEVEL_CITY;
         } else if (currentLevel == LEVEL_CITY) {
-            //getSupportActionBar().setTitle(dataList.get(position));
-            presenter.getCounties(18, 146);
+            presenter.getCounties(position);
             currentLevel = LEVEL_COUNTY;
         } else if (currentLevel == LEVEL_COUNTY) {
             Toast.makeText(this, "选择地区成功", Toast.LENGTH_SHORT).show();

@@ -6,9 +6,9 @@ public class City extends LitePalSupport {
 
     private int id;
 
-    private String name;
-
     private int code;
+
+    private String name;
 
     private int provinceId;
 
@@ -20,20 +20,20 @@ public class City extends LitePalSupport {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getCode() {
         return code;
     }
 
     public void setCode(int code) {
         this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getProvinceId() {
@@ -47,9 +47,9 @@ public class City extends LitePalSupport {
     @Override
     public String toString() {
         return "City{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
+                "id=" + id +
                 ", code=" + code +
+                ", name='" + name + '\'' +
                 ", provinceId=" + provinceId +
                 '}';
     }

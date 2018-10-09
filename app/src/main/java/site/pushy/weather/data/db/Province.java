@@ -39,7 +39,6 @@ public class Province extends LitePalSupport {
         return "Province{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", code=" + code +
                 '}';
     }
 }

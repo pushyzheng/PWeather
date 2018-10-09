@@ -20,9 +20,9 @@ public class SelectAreaContract {
 
         void getProvinces();
 
-        void getCities(int id);
+        void getCities(int position);
 
-        void getCounties(int provinceId, int cityId);
+        void getCounties(int position);
 
     }
 
