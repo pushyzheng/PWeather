@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorWhite"
-        android:textSize="17sp"
+        android:textSize="16sp"
         android:text="今天"/>
 
     <!--天气状况-->
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorWhite"
-        android:textSize="17sp"
+        android:textSize="16sp"
         android:layout_toRightOf="@id/tv_forecast_date"
         android:layout_marginLeft="5dp"
         android:text="晴"/>
@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorWhite"
-        android:textSize="17sp"
+        android:textSize="16sp"
         android:layout_toLeftOf="@id/tv_forecast_min"
         android:text="19"/>
 
@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorWhite"
-        android:textSize="17sp"
+        android:textSize="16sp"
         android:layout_alignParentRight="true"
         android:text="/6℃"/>
 

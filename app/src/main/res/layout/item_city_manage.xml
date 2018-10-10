@@ -62,6 +62,7 @@
             android:layout_alignParentRight="true"
             android:text="℃" />
 
+        <!--分割线-->
         <View
             android:id="@+id/tv_city_manage_divider"
             android:layout_width="match_parent"

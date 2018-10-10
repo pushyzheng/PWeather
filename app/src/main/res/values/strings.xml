@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">PWeather</string>
+    <string name="app_name">普天气</string>
+
+
+
+
+
+
+
+
+    <string name="test_suggestion_txt">
+        白天不太热也不太冷，风力不大，相信您在这样的天气条件下，应会感到比较清爽和舒适。
+    </string>
+
+
 </resources>

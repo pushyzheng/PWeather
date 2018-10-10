@@ -27,6 +27,7 @@ import site.pushy.weather.citymanage.CityManageActivity;
 import site.pushy.weather.data.WeatherType;
 import site.pushy.weather.data.db.MyArea;
 import site.pushy.weather.data.weather.Forecast;
+import site.pushy.weather.data.weather.Suggestion;
 import site.pushy.weather.data.weather.Weather;
 import site.pushy.weather.selectarea.SelectAreaActivity;
 
@@ -44,6 +45,7 @@ public class WeatherInfoActivity extends AppCompatActivity implements WeatherInf
     @BindView(R.id.tv_air_aqi) TextView tvAirAqi;
     @BindView(R.id.tv_wind_dir) TextView tvWindDir;
     @BindView(R.id.layout_forecast) LinearLayout forecastLayout;
+    @BindView(R.id.layout_suggestion) LinearLayout suggestionLayout;
     @BindView(R.id.swipe_refresh_main) SwipeRefreshLayout swipeRefresh;
     @BindView(R.id.iv_main_add_city) ImageView ivAddCity;
 
@@ -124,6 +126,24 @@ public class WeatherInfoActivity extends AppCompatActivity implements WeatherInf
             weatherImg.setImageResource(WeatherType.getWeatherICResource(forecast.more.info));
             forecastLayout.addView(view);
         }
+
+        /* 设置洗车、舒适度、运动建议数据 */
+        suggestionLayout.removeAllViews();
+        setSuggestionItem(R.drawable.ic_comf, weather.suggestion.comfort.gist, weather.suggestion.comfort.info);
+        setSuggestionItem(R.drawable.ic_wash_car, weather.suggestion.carWash.gist, weather.suggestion.carWash.info);
+        setSuggestionItem(R.drawable.ic_sports, weather.suggestion.sport.gist, weather.suggestion.sport.info);
+    }
+
+    private void setSuggestionItem(int resId, String brf, String txt) {
+        View view = LayoutInflater.from(this)
+                .inflate(R.layout.main_suggestion_item, suggestionLayout, false);
+        ImageView icImg = view.findViewById(R.id.iv_suggestion_ic);
+        TextView brfText = view.findViewById(R.id.tv_suggestion_brf);
+        TextView txtText = view.findViewById(R.id.tv_suggestion_txt);
+        icImg.setImageResource(resId);
+        brfText.setText(brf);
+        txtText.setText(txt);
+        suggestionLayout.addView(view);
     }
 
     @Override
