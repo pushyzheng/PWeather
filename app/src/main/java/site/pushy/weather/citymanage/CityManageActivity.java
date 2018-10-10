@@ -19,13 +19,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import site.pushy.weather.R;
+import site.pushy.weather.base.BaseActivity;
 import site.pushy.weather.data.weather.Weather;
 import site.pushy.weather.selectarea.SelectAreaActivity;
 import site.pushy.weather.uitls.ToastUtil;
 import site.pushy.weather.weatherinfo.WeatherInfoActivity;
 import site.pushy.weather.weatherinfo.WeatherInfoModel;
 
-public class CityManageActivity extends AppCompatActivity implements CityManageContract.View,
+public class CityManageActivity extends BaseActivity implements CityManageContract.View,
         View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, CityListAdapter.OnItemClickListener {
 
     private static final String TAG = "CityManageActivity";

@@ -17,10 +17,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import site.pushy.weather.R;
+import site.pushy.weather.base.BaseActivity;
 import site.pushy.weather.uitls.ToastUtil;
 import site.pushy.weather.weatherinfo.WeatherInfoActivity;
 
-public class SelectAreaActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, SelectAreaContract.View  {
+public class SelectAreaActivity extends BaseActivity
+        implements AdapterView.OnItemClickListener, SelectAreaContract.View  {
 
     private static final int LEVEL_PROVINCE = 0;
     private static final int LEVEL_CITY = 1;

@@ -13,11 +13,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.litepal.LitePal;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import site.pushy.weather.R;
 import site.pushy.weather.citymanage.CityManageActivity;
 import site.pushy.weather.data.WeatherType;
+import site.pushy.weather.data.db.MyArea;
 import site.pushy.weather.data.weather.Forecast;
 import site.pushy.weather.data.weather.Weather;
 import site.pushy.weather.uitls.ToastUtil;

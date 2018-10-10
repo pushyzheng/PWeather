@@ -28,7 +28,9 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import site.pushy.weather.ActivityController;
 import site.pushy.weather.R;
+import site.pushy.weather.base.BaseActivity;
 import site.pushy.weather.citymanage.CityManageActivity;
 import site.pushy.weather.data.WeatherType;
 import site.pushy.weather.data.db.MyArea;
@@ -37,7 +39,7 @@ import site.pushy.weather.data.weather.Suggestion;
 import site.pushy.weather.data.weather.Weather;
 import site.pushy.weather.selectarea.SelectAreaActivity;
 
-public class WeatherInfoActivity extends AppCompatActivity implements View.OnClickListener {
+public class WeatherInfoActivity extends BaseActivity implements View.OnClickListener {
 
     private List<Fragment> fragmentList;
     private Map<String, Fragment> fragmentMap;
@@ -87,6 +89,7 @@ public class WeatherInfoActivity extends AppCompatActivity implements View.OnCli
             mViewPager.setCurrentItem(fragmentList.indexOf(currentItem), false);
         }
 
+        ActivityController.finishAll(this);
     }
 
     private void initWidget() {
