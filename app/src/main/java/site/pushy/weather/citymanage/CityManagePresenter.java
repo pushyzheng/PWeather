@@ -1,7 +1,5 @@
 package site.pushy.weather.citymanage;
 
-import com.google.gson.Gson;
-
 import org.litepal.LitePal;
 
 import java.util.LinkedList;

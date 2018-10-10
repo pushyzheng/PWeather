@@ -4,12 +4,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.litepal.LitePal;
 
@@ -19,9 +17,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import site.pushy.weather.R;
-import site.pushy.weather.data.db.City;
-import site.pushy.weather.data.db.MyArea;
-import site.pushy.weather.data.db.Province;
 import site.pushy.weather.uitls.ToastUtil;
 import site.pushy.weather.weatherinfo.WeatherInfoActivity;
 

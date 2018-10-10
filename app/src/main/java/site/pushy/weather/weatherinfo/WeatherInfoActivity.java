@@ -6,6 +6,7 @@ import android.os.Build;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,15 +16,25 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import org.litepal.LitePal;
+
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import site.pushy.weather.R;
 import site.pushy.weather.citymanage.CityManageActivity;
+import site.pushy.weather.data.db.MyArea;
 import site.pushy.weather.data.weather.Forecast;
 import site.pushy.weather.data.weather.Weather;
+import site.pushy.weather.selectarea.SelectAreaActivity;
 
 public class WeatherInfoActivity extends AppCompatActivity implements WeatherInfoContract.View,
         SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
+
+    private static final String TAG = "WeatherInfoActivity";
+    private String weatherId;  // 当前显示天气数据的地区的code
+    private WeatherInfoPresenter presenter;
 
     @BindView(R.id.iv_background) ImageView ivBackground;
     @BindView(R.id.tv_temp) TextView tvTemp;
@@ -50,8 +61,24 @@ public class WeatherInfoActivity extends AppCompatActivity implements WeatherInf
         ButterKnife.bind(this);
         initWidget();
 
-        WeatherInfoPresenter presenter = new WeatherInfoPresenter(this, new WeatherInfoModel());
-        presenter.getWeatherInfo("CN101230909");
+        presenter = new WeatherInfoPresenter(this, new WeatherInfoModel());
+        weatherId = getIntent().getStringExtra("weatherId");
+
+        if (weatherId == null) {
+            /* main启动，从缓存中获取添加过的城市地区 */
+            List<MyArea> myAreas = LitePal.findAll(MyArea.class);
+            if (myAreas.isEmpty()) {  // 未添加过城市
+                startActivity(new Intent(this, SelectAreaActivity.class));
+                finish();
+            } else {
+                /* 获取并显示缓存中添加的第一个Area的天气数据 */
+                MyArea myArea = myAreas.get(0);
+                presenter.getWeatherInfo(myArea.getWeatherId());
+            }
+            return;
+        }
+        /* 从其他Activity跳转，直接获取传入的weatherId的天气数据 */
+        presenter.getWeatherInfo(weatherId);
     }
 
     @Override
@@ -99,6 +126,7 @@ public class WeatherInfoActivity extends AppCompatActivity implements WeatherInf
     @Override
     public void onRefresh() {
         swipeRefresh.setRefreshing(false);
+        presenter.updateWeatherInfo(weatherId);
         Toast.makeText(this, "更新天气数据成功", Toast.LENGTH_SHORT).show();
     }
 

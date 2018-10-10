@@ -9,12 +9,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
-import org.litepal.LitePal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +19,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import site.pushy.weather.R;
-import site.pushy.weather.data.db.MyArea;
 import site.pushy.weather.data.weather.Weather;
 import site.pushy.weather.selectarea.SelectAreaActivity;
-import site.pushy.weather.uitls.StorageUtil;
+import site.pushy.weather.uitls.ToastUtil;
+import site.pushy.weather.weatherinfo.WeatherInfoActivity;
 import site.pushy.weather.weatherinfo.WeatherInfoModel;
 
 public class CityManageActivity extends AppCompatActivity implements CityManageContract.View,
-        View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+        View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, CityListAdapter.OnItemClickListener {
 
     private static final String TAG = "CityManageActivity";
     private List<Weather> weatherList;
@@ -67,11 +64,12 @@ public class CityManageActivity extends AppCompatActivity implements CityManageC
         swipeRefresh.setOnRefreshListener(this);
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
 
-        /* 初始化城市管理列表 */
+        /* 初始化城市管理列表CityListAdapter控件 */
         weatherList = new ArrayList<>();
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
         cityListAdapter = new CityListAdapter(weatherList);
+        cityListAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(cityListAdapter);
     }
 
@@ -103,7 +101,12 @@ public class CityManageActivity extends AppCompatActivity implements CityManageC
 
     @Override
     public void setMyAreaWeatherInfo(List<Weather> weathers) {
-        weatherList.addAll(weathers);
+        for (Weather weather : weathers) {
+            if (weatherList.contains(weather)) {
+                continue;
+            }
+            weatherList.add(weather);
+        }
         cityListAdapter.notifyDataSetChanged();
     }
 
@@ -111,5 +114,17 @@ public class CityManageActivity extends AppCompatActivity implements CityManageC
     public void onRefresh() {
         swipeRefresh.setRefreshing(false);
         Toast.makeText(this, "刷新成功", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 城市卡片列表每项点击事件触发的回调方法
+     */
+    @Override
+    public void onItemClick(View view, int position) {
+        Weather weather = weatherList.get(position);
+        Intent intent = new Intent(this, WeatherInfoActivity.class);
+        intent.putExtra("weatherId", weather.basic.weatherId);
+        startActivity(intent);
+        finish();
     }
 }
