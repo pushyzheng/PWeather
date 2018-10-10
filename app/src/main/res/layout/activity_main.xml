@@ -3,37 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/iv_background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:background="#5F95EE"/>
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_main"
-        android:layout_width="match_parent"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager_main"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="50dp">
-
-                <include layout="@layout/main_now" />
-
-                <include layout="@layout/main_air" />
-
-                <include layout="@layout/main_forecast" />
-
-                <include layout="@layout/main_suggestion" />
-
-            </LinearLayout>
-        </ScrollView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </android.support.v4.view.ViewPager>
 
     <RelativeLayout
         android:layout_width="match_parent"

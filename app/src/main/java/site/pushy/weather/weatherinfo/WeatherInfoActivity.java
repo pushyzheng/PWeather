@@ -3,6 +3,8 @@ package site.pushy.weather.weatherinfo;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +20,8 @@ import com.bumptech.glide.Glide;
 
 import org.litepal.LitePal;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -31,27 +35,17 @@ import site.pushy.weather.data.weather.Suggestion;
 import site.pushy.weather.data.weather.Weather;
 import site.pushy.weather.selectarea.SelectAreaActivity;
 
-public class WeatherInfoActivity extends AppCompatActivity implements WeatherInfoContract.View,
-        SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
+public class WeatherInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = "WeatherInfoActivity";
-    private String weatherId;  // 当前显示天气数据的地区的code
-    private WeatherInfoPresenter presenter;
+    private List<Fragment> fragmentList;
 
-    @BindView(R.id.iv_background) ImageView ivBackground;
-    @BindView(R.id.tv_temp) TextView tvTemp;
-    @BindView(R.id.tv_city) TextView tvCity;
-    @BindView(R.id.tv_info) TextView tvInfo;
-    @BindView(R.id.tv_air_aqi) TextView tvAirAqi;
-    @BindView(R.id.tv_wind_dir) TextView tvWindDir;
-    @BindView(R.id.layout_forecast) LinearLayout forecastLayout;
-    @BindView(R.id.layout_suggestion) LinearLayout suggestionLayout;
-    @BindView(R.id.swipe_refresh_main) SwipeRefreshLayout swipeRefresh;
     @BindView(R.id.iv_main_add_city) ImageView ivAddCity;
+    @BindView(R.id.viewpager_main) ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /* 设置沉浸式状态栏 */
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
             decorView.setSystemUiVisibility(
@@ -64,93 +58,29 @@ public class WeatherInfoActivity extends AppCompatActivity implements WeatherInf
         ButterKnife.bind(this);
         initWidget();
 
-        presenter = new WeatherInfoPresenter(this, new WeatherInfoModel());
-        weatherId = getIntent().getStringExtra("weatherId");
+        List<MyArea> myAreas = LitePal.findAll(MyArea.class);  // 从数据库中获取到添加过的所有城市地区
+        if (myAreas.isEmpty()) {  // 未添加过城市
+            startActivity(new Intent(this, SelectAreaActivity.class));
+            finish();
 
-        if (weatherId == null) {
-            /* main启动，从缓存中获取添加过的城市地区 */
-            List<MyArea> myAreas = LitePal.findAll(MyArea.class);
-            if (myAreas.isEmpty()) {  // 未添加过城市
-                startActivity(new Intent(this, SelectAreaActivity.class));
-                finish();
-            } else {
-                /* 获取并显示缓存中添加的第一个Area的天气数据 */
-                MyArea myArea = myAreas.get(0);
-                presenter.getWeatherInfo(myArea.getWeatherId());
+        } else {
+            /* 初始化各个fragment和ViewPager */
+            for (MyArea myArea : myAreas) {
+                WeatherInfoFragment fragment = new WeatherInfoFragment();
+                Bundle bundle = new Bundle();  // 传给fragment参数值介质
+                bundle.putString("weatherId", myArea.getWeatherId());
+                fragment.setArguments(bundle);
+                fragmentList.add(fragment);
             }
-            return;
         }
-        /* 从其他Activity跳转，直接获取传入的weatherId的天气数据 */
-        presenter.getWeatherInfo(weatherId);
-    }
 
-    @Override
-    public void setPresenter(WeatherInfoContract.Presenter presenter) {
-
+        WeatherInfoPagerAdapter adapter = new WeatherInfoPagerAdapter(getSupportFragmentManager(), fragmentList);
+        mViewPager.setAdapter(adapter);
     }
 
     private void initWidget() {
-        swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
-        swipeRefresh.setOnRefreshListener(this);
+        fragmentList = new LinkedList<>();
         ivAddCity.setOnClickListener(this);
-    }
-
-    @Override
-    public void setWeather(Weather weather) {
-//        Glide.with(this)
-//                .load("http://cn.bing.com/az/hprichbg/rb/MarshallPoint_ZH-CN9062933060_1920x1080.jpg")
-//                .into(ivBackground);
-
-        tvTemp.setText(weather.now.temperature);
-        tvCity.setText(weather.basic.location);
-        tvInfo.setText(weather.now.more.info);
-
-        String apiText = String.format("空气%s %s", weather.aqi.city.qlty, weather.aqi.city.aqi);
-        tvAirAqi.setText(apiText);
-        tvWindDir.setText(weather.now.windDir);
-
-        /* 设置未来天气播报部分数据 */
-        forecastLayout.removeAllViews();
-        for (Forecast forecast : weather.forecastList) {
-            View view = LayoutInflater.from(this)
-                    .inflate(R.layout.main_forecast_item, forecastLayout, false);
-            TextView dateText = view.findViewById(R.id.tv_forecast_date);
-            TextView infoText = view.findViewById(R.id.tv_forecast_info);
-            ImageView weatherImg = view.findViewById(R.id.tv_forecast_ic);
-            TextView maxText = view.findViewById(R.id.tv_forecast_max);
-            TextView minText = view.findViewById(R.id.tv_forecast_min);
-            dateText.setText(forecast.date);
-            infoText.setText(" · " + forecast.more.info);
-            maxText.setText(forecast.temperature.max);
-            minText.setText(String.format("/%s℃", forecast.temperature.min));
-            weatherImg.setImageResource(WeatherType.getWeatherICResource(forecast.more.info));
-            forecastLayout.addView(view);
-        }
-
-        /* 设置洗车、舒适度、运动建议数据 */
-        suggestionLayout.removeAllViews();
-        setSuggestionItem(R.drawable.ic_comf, weather.suggestion.comfort.gist, weather.suggestion.comfort.info);
-        setSuggestionItem(R.drawable.ic_wash_car, weather.suggestion.carWash.gist, weather.suggestion.carWash.info);
-        setSuggestionItem(R.drawable.ic_sports, weather.suggestion.sport.gist, weather.suggestion.sport.info);
-    }
-
-    private void setSuggestionItem(int resId, String brf, String txt) {
-        View view = LayoutInflater.from(this)
-                .inflate(R.layout.main_suggestion_item, suggestionLayout, false);
-        ImageView icImg = view.findViewById(R.id.iv_suggestion_ic);
-        TextView brfText = view.findViewById(R.id.tv_suggestion_brf);
-        TextView txtText = view.findViewById(R.id.tv_suggestion_txt);
-        icImg.setImageResource(resId);
-        brfText.setText(brf);
-        txtText.setText(txt);
-        suggestionLayout.addView(view);
-    }
-
-    @Override
-    public void onRefresh() {
-        swipeRefresh.setRefreshing(false);
-        presenter.updateWeatherInfo(weatherId);
-        Toast.makeText(this, "更新天气数据成功", Toast.LENGTH_SHORT).show();
     }
 
     @Override
