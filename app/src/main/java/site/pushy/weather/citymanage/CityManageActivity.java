@@ -117,7 +117,7 @@ public class CityManageActivity extends AppCompatActivity implements CityManageC
     }
 
     /**
-     * 城市卡片列表每项点击事件触发的回调方法
+     * 城市卡片列表每项点击事件触发的回调方法，跳转到WeatherInfoActivity对应的Fragment
      */
     @Override
     public void onItemClick(View view, int position) {

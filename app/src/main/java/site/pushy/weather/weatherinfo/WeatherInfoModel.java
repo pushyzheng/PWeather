@@ -3,7 +3,7 @@ package site.pushy.weather.weatherinfo;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import site.pushy.weather.BaseModel;
+import site.pushy.weather.base.BaseModel;
 import site.pushy.weather.data.weather.BaseWeather;
 import site.pushy.weather.http.RetrofitServiceManager;
 

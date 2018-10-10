@@ -5,7 +5,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import site.pushy.weather.BaseModel;
+import site.pushy.weather.base.BaseModel;
 import site.pushy.weather.data.db.City;
 import site.pushy.weather.data.db.County;
 import site.pushy.weather.data.db.Province;

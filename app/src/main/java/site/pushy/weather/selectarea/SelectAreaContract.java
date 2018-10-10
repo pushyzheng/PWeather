@@ -2,9 +2,8 @@ package site.pushy.weather.selectarea;
 
 import java.util.List;
 
-import site.pushy.weather.BasePresenter;
-import site.pushy.weather.BaseView;
-import site.pushy.weather.weatherinfo.WeatherInfoContract;
+import site.pushy.weather.base.BasePresenter;
+import site.pushy.weather.base.BaseView;
 
 public class SelectAreaContract {
 

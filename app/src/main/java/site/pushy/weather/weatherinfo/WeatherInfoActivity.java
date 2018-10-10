@@ -21,8 +21,10 @@ import com.bumptech.glide.Glide;
 import org.litepal.LitePal;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +40,7 @@ import site.pushy.weather.selectarea.SelectAreaActivity;
 public class WeatherInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private List<Fragment> fragmentList;
+    private Map<String, Fragment> fragmentMap;
 
     @BindView(R.id.iv_main_add_city) ImageView ivAddCity;
     @BindView(R.id.viewpager_main) ViewPager mViewPager;
@@ -70,16 +73,25 @@ public class WeatherInfoActivity extends AppCompatActivity implements View.OnCli
                 Bundle bundle = new Bundle();  // 传给fragment参数值介质
                 bundle.putString("weatherId", myArea.getWeatherId());
                 fragment.setArguments(bundle);
+
                 fragmentList.add(fragment);
+                fragmentMap.put(myArea.getWeatherId(), fragment);
             }
+            WeatherInfoPagerAdapter adapter = new WeatherInfoPagerAdapter(getSupportFragmentManager(), fragmentList);
+            mViewPager.setAdapter(adapter);
         }
 
-        WeatherInfoPagerAdapter adapter = new WeatherInfoPagerAdapter(getSupportFragmentManager(), fragmentList);
-        mViewPager.setAdapter(adapter);
+        String intentExtra = getIntent().getStringExtra("weatherId");
+        if (intentExtra != null) {  // 从其他Activity跳转，跳转ViewPager指定的Fragment
+            Fragment currentItem = fragmentMap.get(intentExtra);
+            mViewPager.setCurrentItem(fragmentList.indexOf(currentItem), false);
+        }
+
     }
 
     private void initWidget() {
         fragmentList = new LinkedList<>();
+        fragmentMap = new HashMap<>();
         ivAddCity.setOnClickListener(this);
     }
 

@@ -1,4 +1,4 @@
-package site.pushy.weather;
+package site.pushy.weather.base;
 
 public interface BaseView<T> {
 
