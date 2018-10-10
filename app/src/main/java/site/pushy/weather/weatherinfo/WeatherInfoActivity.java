@@ -24,6 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import site.pushy.weather.R;
 import site.pushy.weather.citymanage.CityManageActivity;
+import site.pushy.weather.data.WeatherType;
 import site.pushy.weather.data.db.MyArea;
 import site.pushy.weather.data.weather.Forecast;
 import site.pushy.weather.data.weather.Weather;
@@ -113,12 +114,14 @@ public class WeatherInfoActivity extends AppCompatActivity implements WeatherInf
                     .inflate(R.layout.main_forecast_item, forecastLayout, false);
             TextView dateText = view.findViewById(R.id.tv_forecast_date);
             TextView infoText = view.findViewById(R.id.tv_forecast_info);
+            ImageView weatherImg = view.findViewById(R.id.tv_forecast_ic);
             TextView maxText = view.findViewById(R.id.tv_forecast_max);
             TextView minText = view.findViewById(R.id.tv_forecast_min);
             dateText.setText(forecast.date);
             infoText.setText(" · " + forecast.more.info);
             maxText.setText(forecast.temperature.max);
             minText.setText(String.format("/%s℃", forecast.temperature.min));
+            weatherImg.setImageResource(WeatherType.getWeatherICResource(forecast.more.info));
             forecastLayout.addView(view);
         }
     }

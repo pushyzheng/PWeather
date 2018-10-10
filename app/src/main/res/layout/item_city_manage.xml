@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="8dp"
     android:background="@color/colorWhite">
 
@@ -15,7 +15,7 @@
             android:id="@+id/tv_city_manage_county"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="政和县"
+            tools:text="政和县"
             android:textSize="23sp" />
 
         <TextView
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_city_manage_county"
             android:layout_marginTop="5dp"
-            android:text="南平"
+            tools:text="南平"
             android:textSize="13sp" />
 
         <TextView
@@ -34,10 +34,11 @@
             android:layout_below="@id/tv_city_manage_county"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/tv_city_manage_city"
-            android:text="，福建"
+            tools:text="，福建"
             android:textSize="13sp" />
 
         <ImageView
+            android:id="@+id/tv_city_manage_ic"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignBottom="@+id/tv_city_manage_county"
@@ -51,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/tv_city_manage_city"
             android:layout_toLeftOf="@+id/tv_city_manage_temp_symbol"
-            android:text="19"
+            tools:text="19"
             android:textSize="60sp" />
 
         <TextView
@@ -62,11 +63,61 @@
             android:text="℃" />
 
         <View
+            android:id="@+id/tv_city_manage_divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorDivider"
             android:layout_below="@id/tv_city_manage_city"
             android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/tv_city_manage_quality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="空气优 | "
+            android:textSize="13sp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/tv_city_manage_divider"/>
+
+        <TextView
+            android:id="@+id/tv_city_manage_humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="湿度95% | "
+            android:textSize="13sp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/tv_city_manage_quality"
+            android:layout_below="@id/tv_city_manage_divider"/>
+
+        <TextView
+            android:id="@+id/tv_city_manage_wind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="北风3级"
+            android:textSize="13sp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/tv_city_manage_humidity"
+            android:layout_below="@id/tv_city_manage_divider"/>
+
+        <TextView
+            android:id="@+id/tv_city_manage_temp_max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text=" / 14℃"
+            android:textSize="17sp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/tv_city_manage_divider"
+            android:layout_alignParentRight="true" />
+
+        <TextView
+            android:id="@+id/tv_city_manage_temp_min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="20"
+            android:textSize="17sp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/tv_city_manage_divider"
+            android:layout_toLeftOf="@id/tv_city_manage_temp_max"/>
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>
