@@ -1,6 +1,6 @@
-![ic_launcher.png](https://upload-images.jianshu.io/upload_images/7366843-8d09b2bd785be9b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+<p align="center"><img src="https://upload-images.jianshu.io/upload_images/7366843-8d09b2bd785be9b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></p>
 
-<h2 align="center">PWeather</h2>
+<h1 align="center">PWeather</h1>
 
 一款像素级模仿MIUI10的天气App，采用主流MVP模式开发，封装Retrofit2  + RxJava + okHTTP3 网络请求。具有城市管理，生活建议等播报功能。
 
